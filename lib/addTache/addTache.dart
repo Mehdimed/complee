@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:complee/services/tachesRepository.dart';
+import 'package:complee/models/tache.dart';
 
 class AddTache extends StatelessWidget {
   const AddTache({super.key});
@@ -10,7 +12,14 @@ class AddTache extends StatelessWidget {
         title: Text('Complee'),
       ),
       body: Center(
-        child: Text('tache'),
+        child: ElevatedButton(
+          onPressed: () {
+            TachesRepository()
+                .insertTache(Tache(name: 'test', total: 10, completed: 0));
+            Navigator.pushNamed(context, '/');
+          },
+          child: Text('ajouter une tache'),
+        ),
       ),
     );
   }
