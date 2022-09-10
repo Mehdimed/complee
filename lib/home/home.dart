@@ -52,25 +52,8 @@ class _HomeState extends State<Home> {
                     elevation: 6,
                     margin: const EdgeInsets.all(10),
                     child: ListTile(
-                      leading: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 25),
-                            child: Text("${snapshot.data![index].completed}"),
-                          ),
-                          Text(
-                            "/",
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 25),
-                            child: Text(
-                              "${snapshot.data![index].total}",
-                            ),
-                          ),
-                        ],
-                      ),
-                      title: Text(snapshot.data![index].name),
+                      title: Text(
+                          "${snapshot.data![index].name} - ${snapshot.data![index].completed}/${snapshot.data![index].total}"),
                       subtitle: LinearProgressIndicator(
                         value: snapshot.data![index].completed /
                             snapshot.data![index].total,
