@@ -2,9 +2,19 @@ import 'package:complee/shared/botNavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:complee/services/tachesRepository.dart';
 import 'package:complee/models/tache.dart';
+import 'package:sqflite/sqflite.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  void updateState() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +31,24 @@ class Home extends StatelessWidget {
               if (snapshot.hasData) {
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
+                  itemBuilder: (context, index) => Card(
+                    elevation: 6,
+                    margin: const EdgeInsets.all(10),
+                    child: ListTile(
                       title: Text(snapshot.data![index].name),
-                      subtitle: Text(snapshot.data![index].total.toString()),
-                    );
-                  },
+                      trailing: InkWell(
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onTap: () {
+                          TachesRepository()
+                              .deleteTache(snapshot.data![index].id!);
+                          updateState();
+                        },
+                      ),
+                    ),
+                  ),
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
@@ -35,10 +57,8 @@ class Home extends StatelessWidget {
             },
           ),
         ),
-        bottomNavigationBar: BotNavbar(),
+        bottomNavigationBar: BotNavbar(updateHome: updateState),
       ),
     );
   }
-
-  // mettre a jour la liste des taches
 }

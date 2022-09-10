@@ -2,9 +2,9 @@ class Tache {
   int? id;
   String name;
   int total;
-  int? completed;
+  int completed;
 
-  Tache({required this.name, required this.total, completed = 0});
+  Tache({this.id, required this.name, required this.total, this.completed = 0});
 
   Map<String, dynamic> toMap() {
     final map = {

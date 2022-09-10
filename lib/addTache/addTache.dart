@@ -14,9 +14,9 @@ class AddTache extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            TachesRepository()
-                .insertTache(Tache(name: 'test', total: 10, completed: 0));
-            Navigator.pushNamed(context, '/');
+            TachesRepository().insertTache(
+                Tache(id: null, name: 'test', total: 10, completed: 0));
+            Navigator.pop(context);
           },
           child: Text('ajouter une tache'),
         ),

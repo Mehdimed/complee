@@ -16,6 +16,7 @@ class TachesRepository {
 
     return List.generate(maps.length, (i) {
       return Tache(
+        id: maps[i]['id'],
         name: maps[i]['name'],
         total: maps[i]['total'],
         completed: maps[i]['completed'],
@@ -30,6 +31,7 @@ class TachesRepository {
         await db.query('taches', where: "id = ?", whereArgs: [id], limit: 1);
 
     return Tache(
+      id: maps[0]['id'],
       name: maps[0]['name'],
       total: maps[0]['total'],
       completed: maps[0]['completed'],
@@ -43,6 +45,16 @@ class TachesRepository {
       'taches',
       tache.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  // delete tache
+  Future<void> deleteTache(int id) async {
+    final db = await dbHelper.getDB();
+    await db.delete(
+      'taches',
+      where: "id = ?",
+      whereArgs: [id],
     );
   }
 }
