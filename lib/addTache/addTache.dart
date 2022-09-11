@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:complee/services/tachesRepository.dart';
-import 'package:complee/models/tache.dart';
+import 'tacheForm.dart';
+
+import 'dart:math';
 
 class AddTache extends StatelessWidget {
   const AddTache({super.key});
@@ -11,16 +12,8 @@ class AddTache extends StatelessWidget {
       appBar: AppBar(
         title: Text('Complee'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            TachesRepository().insertTache(
-                Tache(id: null, name: 'test', total: 10, completed: 2));
-            Navigator.pop(context);
-          },
-          child: Text('ajouter une tache'),
-        ),
-      ),
+      // create a form to add a new tache with 2 text fields (name and total) and a button to submit
+      body: TacheForm(),
     );
   }
 }

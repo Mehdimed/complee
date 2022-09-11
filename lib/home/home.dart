@@ -18,17 +18,17 @@ class _HomeState extends State<Home> {
 
   Color? getColor(int completed, int total) {
     double ratio = (completed / total);
-    if (ratio > 0.9) {
-      return Color(0x3F13FF2B);
+    if (ratio > 0.8) {
+      return Color(0x9F13FF2B);
     }
     if (ratio > 0.5) {
-      return Color(0x3FEBFF13);
+      return Color(0x9FEBFF13);
     }
     if (ratio > 0.25) {
-      return Color(0x3fFFA113);
+      return Color(0x9fFFA113);
     }
     if (ratio > 0) {
-      return Color(0x3fFD0000);
+      return Color(0x9fFD0000);
     }
     return null;
   }
