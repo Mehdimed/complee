@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:complee/services/tachesRepository.dart';
 import 'package:complee/models/tache.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:complee/services/colors.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,23 +15,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   void updateState() {
     setState(() {});
-  }
-
-  Color? getColor(int completed, int total) {
-    double ratio = (completed / total);
-    if (ratio > 0.8) {
-      return Color(0x9F13FF2B);
-    }
-    if (ratio > 0.5) {
-      return Color(0x9FEBFF13);
-    }
-    if (ratio > 0.25) {
-      return Color(0x9fFFA113);
-    }
-    if (ratio > 0) {
-      return Color(0x9fFD0000);
-    }
-    return null;
   }
 
   @override
@@ -48,28 +32,35 @@ class _HomeState extends State<Home> {
               if (snapshot.hasData) {
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) => Card(
-                    elevation: 6,
-                    margin: const EdgeInsets.all(10),
-                    child: ListTile(
-                      title: Text(
-                          "${snapshot.data![index].name} - ${snapshot.data![index].completed}/${snapshot.data![index].total}"),
-                      subtitle: LinearProgressIndicator(
-                        value: snapshot.data![index].completed /
-                            snapshot.data![index].total,
-                        color: getColor(snapshot.data![index].completed,
-                            snapshot.data![index].total),
-                      ),
-                      trailing: InkWell(
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
+                  itemBuilder: (context, index) => Hero(
+                    tag: snapshot.data![index].id!,
+                    child: Card(
+                      elevation: 6,
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
                         onTap: () {
-                          TachesRepository()
-                              .deleteTache(snapshot.data![index].id!);
-                          updateState();
+                          Navigator.pushNamed(context, '/tache',
+                              arguments: snapshot.data![index].toMap());
                         },
+                        title: Text(
+                            "${snapshot.data![index].name} - ${snapshot.data![index].completed}/${snapshot.data![index].total}"),
+                        subtitle: LinearProgressIndicator(
+                          value: snapshot.data![index].completed /
+                              snapshot.data![index].total,
+                          color: getColor(snapshot.data![index].completed,
+                              snapshot.data![index].total),
+                        ),
+                        trailing: InkWell(
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onTap: () {
+                            TachesRepository()
+                                .deleteTache(snapshot.data![index].id!);
+                            updateState();
+                          },
+                        ),
                       ),
                     ),
                   ),

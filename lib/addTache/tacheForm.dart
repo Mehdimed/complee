@@ -60,6 +60,8 @@ class _TacheFormState extends State<TacheForm> {
             ),
             SizedBox(height: 40),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.surface),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   TachesRepository().insertTache(Tache(
