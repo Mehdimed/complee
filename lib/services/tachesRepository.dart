@@ -38,6 +38,18 @@ class TachesRepository {
     );
   }
 
+  //update the completed value of a tache
+  Future<void> updateTache(int id, int completed) async {
+    final Database db = await dbHelper.getDB();
+
+    await db.update(
+      'taches',
+      {'completed': completed},
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
   //insert tache
   Future<void> insertTache(Tache tache) async {
     final Database db = await dbHelper.getDB();

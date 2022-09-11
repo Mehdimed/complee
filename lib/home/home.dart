@@ -40,7 +40,8 @@ class _HomeState extends State<Home> {
                       child: ListTile(
                         onTap: () {
                           Navigator.pushNamed(context, '/tache',
-                              arguments: snapshot.data![index].toMap());
+                                  arguments: snapshot.data![index].toMap())
+                              .then((_) => setState(() {}));
                         },
                         title: Text(
                             "${snapshot.data![index].name} - ${snapshot.data![index].completed}/${snapshot.data![index].total}"),

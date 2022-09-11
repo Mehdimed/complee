@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:complee/services/colors.dart';
+import 'package:complee/services/tachesRepository.dart';
+import 'package:complee/models/tache.dart';
+import 'dart:async';
 
-class Tache extends StatelessWidget {
+class Tache extends StatefulWidget {
   const Tache({super.key});
+
+  @override
+  State<Tache> createState() => _TacheState();
+}
+
+class _TacheState extends State<Tache> {
+  var tacheCompleted;
+  // timer
+  late Timer timer1;
+  late Timer timer2;
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +25,11 @@ class Tache extends StatelessWidget {
     int total = arguments['total'];
     int completed = arguments['completed'];
     int id = arguments['id'];
+
+    // initialiser la valeur de tacheCompleted a completed la premiere fois
+    if (tacheCompleted == null) {
+      tacheCompleted = completed;
+    }
 
     return Scaffold(
       // appBar: AppBar(),
@@ -40,7 +59,7 @@ class Tache extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$completed/$total',
+                  '${tacheCompleted != null ? tacheCompleted : completed}/$total',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
@@ -52,8 +71,12 @@ class Tache extends StatelessWidget {
                     width: 250,
                     height: 250,
                     child: CircularProgressIndicator(
-                      value: completed / total,
-                      color: getColor(completed, total),
+                      value: tacheCompleted != null
+                          ? tacheCompleted / total
+                          : completed / total,
+                      color: getColor(
+                          tacheCompleted == null ? completed : tacheCompleted,
+                          total),
                       backgroundColor: Theme.of(context).colorScheme.background,
                       strokeWidth: 20,
                     ),
@@ -64,10 +87,46 @@ class Tache extends StatelessWidget {
                   left: 25,
                   child: GestureDetector(
                     onPanDown: (details) {
-                      print('toucher');
+                      setState(() {
+                        isPressed = true;
+                        if (tacheCompleted != null && tacheCompleted > 0) {
+                          tacheCompleted--;
+                        }
+
+                        timer1 = Timer.periodic(Duration(milliseconds: 100),
+                            (timer) {
+                          if (tacheCompleted != null && tacheCompleted > 0) {
+                            setState(() {
+                              tacheCompleted--;
+                            });
+                          }
+                        });
+
+                        Future.delayed(Duration(seconds: 2), () {
+                          if (isPressed == true) {
+                            timer1.cancel();
+                            timer2 = Timer.periodic(Duration(milliseconds: 30),
+                                (timer) {
+                              if (tacheCompleted != null &&
+                                  tacheCompleted > 0) {
+                                setState(() {
+                                  tacheCompleted--;
+                                });
+                              }
+                            });
+                          }
+                        });
+                      });
                     },
                     onPanCancel: () {
-                      print('fin');
+                      isPressed = false;
+                      timer1.cancel();
+                      timer2.cancel();
+                    },
+                    onPanUpdate: (details) {
+                      isPressed = false;
+                      timer1.cancel();
+                      timer2.cancel();
                     },
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -84,10 +143,48 @@ class Tache extends StatelessWidget {
                   right: 25,
                   child: GestureDetector(
                     onPanDown: (details) {
-                      print('toucher');
+                      setState(() {
+                        isPressed = true;
+                        if (tacheCompleted != null && tacheCompleted < total) {
+                          tacheCompleted++;
+                        }
+                        // initiate a timer to increment the value of tacheCompleted
+                        // every 100ms
+                        timer1 = Timer.periodic(Duration(milliseconds: 100),
+                            (timer) {
+                          if (tacheCompleted != null &&
+                              tacheCompleted < total) {
+                            setState(() {
+                              tacheCompleted++;
+                            });
+                          }
+                        });
+
+                        Future.delayed(Duration(seconds: 2), () {
+                          if (isPressed == true) {
+                            timer1.cancel();
+                            timer2 = Timer.periodic(Duration(milliseconds: 30),
+                                (timer) {
+                              if (tacheCompleted != null &&
+                                  tacheCompleted < total) {
+                                setState(() {
+                                  tacheCompleted++;
+                                });
+                              }
+                            });
+                          }
+                        });
+                      });
                     },
                     onPanCancel: () {
-                      print('fin');
+                      isPressed = false;
+                      timer1.cancel();
+                      timer2.cancel();
+                    },
+                    onPanUpdate: (details) {
+                      isPressed = false;
+                      timer1.cancel();
+                      timer2.cancel();
                     },
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -97,6 +194,22 @@ class Tache extends StatelessWidget {
                       onPressed: () {},
                       child: Text('+'),
                     ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 50,
+                  right: 25,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: () {
+                      //upadte tache
+                      TachesRepository().updateTache(id, tacheCompleted);
+                      // retourner a la page precedente et mettre a jour la liste des taches
+                      Navigator.pop(context);
+                    },
+                    child: Text('Enregistrer'),
                   ),
                 ),
               ],
