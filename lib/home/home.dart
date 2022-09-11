@@ -1,9 +1,9 @@
-import 'package:complee/shared/botNavbar.dart';
+import 'package:Complee/shared/botNavbar.dart';
 import 'package:flutter/material.dart';
-import 'package:complee/services/tachesRepository.dart';
-import 'package:complee/models/tache.dart';
+import 'package:Complee/services/tachesRepository.dart';
+import 'package:Complee/models/tache.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:complee/services/colors.dart';
+import 'package:Complee/services/colors.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

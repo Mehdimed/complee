@@ -1,6 +1,6 @@
-import 'package:complee/home/home.dart';
-import 'package:complee/tache/tache.dart';
-import 'package:complee/addTache/addTache.dart';
+import 'package:Complee/home/home.dart';
+import 'package:Complee/tache/tache.dart';
+import 'package:Complee/addTache/addTache.dart';
 
 var routes = {
   '/': (context) => const Home(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:complee/models/tache.dart';
-import 'package:complee/services/tachesRepository.dart';
+import 'package:Complee/models/tache.dart';
+import 'package:Complee/services/tachesRepository.dart';
 
 class TacheForm extends StatefulWidget {
   const TacheForm({super.key});

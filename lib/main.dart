@@ -1,7 +1,7 @@
-import 'package:complee/theme.dart';
+import 'package:Complee/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:complee/routes.dart';
+import 'package:Complee/routes.dart';
 
 void main() async {
   runApp(const Complee());

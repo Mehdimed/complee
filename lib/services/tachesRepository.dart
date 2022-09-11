@@ -1,6 +1,6 @@
-import 'package:complee/models/tache.dart';
+import 'package:Complee/models/tache.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:complee/services/dbHelper.dart';
+import 'package:Complee/services/dbHelper.dart';
 
 class TachesRepository {
   late final DBHelper dbHelper;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:complee/services/colors.dart';
-import 'package:complee/services/tachesRepository.dart';
-import 'package:complee/models/tache.dart';
+import 'package:Complee/services/colors.dart';
+import 'package:Complee/services/tachesRepository.dart';
+import 'package:Complee/models/tache.dart';
 import 'dart:async';
 
 class Tache extends StatefulWidget {
