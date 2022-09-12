@@ -1,16 +1,15 @@
 # complee
 
-A new Flutter project.
+A tiny project to train myself in flutter and dart.
 
-## Getting Started
+## How it works
 
-This project is a starting point for a Flutter application.
+The app is composed of 3 pages:
 
-A few resources to get you started if this is your first Flutter project:
+- The home page, where you can see the list of your tasks, from here you can add a new task by clicking on the footer button, and the task page is accessed by clicking on a task. you can also delete a task by clicking on the delete button on the right of the task.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- The add task page, where you can add a new task is composed of 2 field with a submit button.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- The task page, where you can see the details of a task, you can increment or decrement the number of repetitions of your task and save it.
+
+
