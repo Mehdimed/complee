@@ -1,6 +1,12 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/8861747/189709596-5c2753ce-fab2-432f-9e95-e1336644a893.png" width="150">
+</p>
+ 
 # complee
 
 A tiny project to train myself in flutter and dart.
+
+
 
 ## How it works
 
@@ -24,5 +30,7 @@ the counter accelerate after 2sec to make it easy to increment high numbers of r
 <p align="center">
   <img src="https://media.giphy.com/media/jBFU3HNikYRtQmjThQ/giphy.gif" width="250">  
 </p>
+
+- Tasks are stored using sqlite database , so the state of the App is saved between 2 sesssions.
 
 
